@@ -31,7 +31,7 @@ app.get('/', (req,res) => {
 })
 
 app.get('/api/persons', (req,res) => {
-    console.log('GET /',Date())
+    console.log('GET /api/persons',Date())
     res.json(persons)
 })
 
