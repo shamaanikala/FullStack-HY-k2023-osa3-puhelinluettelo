@@ -96,7 +96,20 @@ app.post('/api/persons', (request,response) => {
 
     console.log('request.body',body)
 
-    //if (!body.name && !body.number) // vasta 3.6
+    if (!body.name || !body.number) {
+        console.log('ERROR: missing name or number',Date())
+        return response.status(400).json({
+            error: 'Entry must have both name and number included.'
+        })
+    }
+    
+    if ([...persons.map(p => p.name)].includes(body.name)) {
+        console.log('ERROR: Duplicate name',Date())
+        return response.status(400).json({
+            error: 'name must be unique'
+        })
+    }
+    console.log('Lisätään uusi yhteystieto')
     const person = {
         name: body.name,
         number: body.number,
@@ -104,19 +117,8 @@ app.post('/api/persons', (request,response) => {
     }
     persons = persons.concat(person)
 
-    response.json(person)
+    response.status(201).json(person)
 })
-
-// app.get('/lol', (request,response) => {
-//     console.log(generateRandomId(persons))
-//     console.log(generateRandomId(persons))
-//     console.log(generateRandomId(persons))
-//     console.log(generateRandomId(persons))
-//     console.log(generateRandomId(persons))
-//     console.log(generateRandomId(persons))
-//     console.log(generateRandomId(persons))
-//     console.log('------')
-// })
 
 
 const PORT = 3001
