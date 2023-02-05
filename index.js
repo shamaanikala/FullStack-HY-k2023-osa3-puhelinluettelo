@@ -35,6 +35,15 @@ app.get('/api/persons', (req,res) => {
     res.json(persons)
 })
 
+app.get('/info', (req,res) => {
+    // Phonebook has info for X people
+    //
+    // Sat Jan 22 2022 22:26:20 GMT+0200 (Easter European Standard Time)
+    console.log('GET /info',Date())
+    const msg = `Phonebook has info for ${persons.length} people<br /><br />${Date()}`
+    res.send(msg)
+})
+
 const PORT = 3001
 app.listen(PORT)
 console.log(`Server running on port ${PORT}`)
