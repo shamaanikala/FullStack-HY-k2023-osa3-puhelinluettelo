@@ -2,6 +2,8 @@ const { response } = require('express')
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
 let persons = [
     {
         "name": "Arto Hellas",
@@ -69,6 +71,53 @@ app.delete('/api/persons/:id', (request,response) => {
     console.log('Persons filter jälk',persons)
     response.status(204).end()
 })
+
+
+const checkExistingId = (id,persons) => {
+    return [...persons.map(p => p.id)].includes(id)
+    ? true
+    : false
+} 
+
+
+const generateRandomId = () => {
+    // random integer between 1,2^64+1
+    //console.log('generoidaan random id')
+    const randomId = Math.floor(Math.random() * 2**64)+1
+    return checkExistingId(randomId,persons)
+    ? generateRandomId()
+    : randomId 
+}
+
+app.post('/api/persons', (request,response) => {
+    console.log('POST /api/persons',Date())
+    console.log('headers',request.headers)
+    const body = request.body
+
+    console.log('request.body',body)
+
+    //if (!body.name && !body.number) // vasta 3.6
+    const person = {
+        name: body.name,
+        number: body.number,
+        id: generateRandomId(),
+    }
+    persons = persons.concat(person)
+
+    response.json(person)
+})
+
+// app.get('/lol', (request,response) => {
+//     console.log(generateRandomId(persons))
+//     console.log(generateRandomId(persons))
+//     console.log(generateRandomId(persons))
+//     console.log(generateRandomId(persons))
+//     console.log(generateRandomId(persons))
+//     console.log(generateRandomId(persons))
+//     console.log(generateRandomId(persons))
+//     console.log('------')
+// })
+
 
 const PORT = 3001
 app.listen(PORT)
