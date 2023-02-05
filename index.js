@@ -47,11 +47,12 @@ app.get('/info', (req,res) => {
 
 app.get('/api/persons/:id', (request,response) => {
     const id = Number(request.params.id)
-    console.log(`GET /api/persons/${id}`)
+    console.log(`GET /api/persons/${id}`,Date())
     const person = persons.find(person => person.id === id)
     if (person) {
         response.json(person)
     } else {
+        console.log(`#STATUS 404: id=${id} not found!`,Date())
         response.status(404).send(
             `<h2>
                 404 - Person not found!
@@ -59,6 +60,14 @@ app.get('/api/persons/:id', (request,response) => {
             <br />
             <i>ID number ${id} does not exist in the data.</i>`)
     }
+})
+
+app.delete('/api/persons/:id', (request,response) => {
+    const id = Number(request.params.id)
+    console.log(`DELETE /api/persons/${id}`,Date())
+    persons = persons.filter(p => p.id !== id)
+    console.log('Persons filter jälk',persons)
+    response.status(204).end()
 })
 
 const PORT = 3001
