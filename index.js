@@ -1,8 +1,11 @@
 const { response } = require('express')
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
 app.use(express.json())
+
+app.use(morgan('tiny'))
 
 let persons = [
     {
@@ -29,12 +32,12 @@ let persons = [
 
 
 app.get('/', (req,res) => {
-    console.log('GET /',Date())
+    //console.log('GET /',Date())
     res.send(`<h1>Puhelinluettelo</h1>`)
 })
 
 app.get('/api/persons', (req,res) => {
-    console.log('GET /api/persons',Date())
+    //console.log('GET /api/persons',Date())
     res.json(persons)
 })
 
@@ -42,19 +45,19 @@ app.get('/info', (req,res) => {
     // Phonebook has info for X people
     //
     // Sat Jan 22 2022 22:26:20 GMT+0200 (Easter European Standard Time)
-    console.log('GET /info',Date())
+    //console.log('GET /info',Date())
     const msg = `Phonebook has info for ${persons.length} people<br /><br />${Date()}`
     res.send(msg)
 })
 
 app.get('/api/persons/:id', (request,response) => {
     const id = Number(request.params.id)
-    console.log(`GET /api/persons/${id}`,Date())
+    //console.log(`GET /api/persons/${id}`,Date())
     const person = persons.find(person => person.id === id)
     if (person) {
         response.json(person)
     } else {
-        console.log(`#STATUS 404: id=${id} not found!`,Date())
+        //console.log(`#STATUS 404: id=${id} not found!`,Date())
         response.status(404).send(
             `<h2>
                 404 - Person not found!
@@ -66,9 +69,9 @@ app.get('/api/persons/:id', (request,response) => {
 
 app.delete('/api/persons/:id', (request,response) => {
     const id = Number(request.params.id)
-    console.log(`DELETE /api/persons/${id}`,Date())
+    //console.log(`DELETE /api/persons/${id}`,Date())
     persons = persons.filter(p => p.id !== id)
-    console.log('Persons filter jälk',persons)
+    //console.log('Persons filter jälk',persons)
     response.status(204).end()
 })
 
@@ -90,26 +93,26 @@ const generateRandomId = () => {
 }
 
 app.post('/api/persons', (request,response) => {
-    console.log('POST /api/persons',Date())
-    console.log('headers',request.headers)
+    // console.log('POST /api/persons',Date())
+    // console.log('headers',request.headers)
     const body = request.body
 
-    console.log('request.body',body)
+    // console.log('request.body',body)
 
     if (!body.name || !body.number) {
-        console.log('ERROR: missing name or number',Date())
+        // console.log('ERROR: missing name or number',Date())
         return response.status(400).json({
             error: 'Entry must have both name and number included.'
         })
     }
     
     if ([...persons.map(p => p.name)].includes(body.name)) {
-        console.log('ERROR: Duplicate name',Date())
+        // console.log('ERROR: Duplicate name',Date())
         return response.status(400).json({
             error: 'name must be unique'
         })
     }
-    console.log('Lisätään uusi yhteystieto')
+    // console.log('Lisätään uusi yhteystieto')
     const person = {
         name: body.name,
         number: body.number,
