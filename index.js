@@ -5,7 +5,25 @@ const app = express()
 
 app.use(express.json())
 
-app.use(morgan('tiny'))
+// POST ei täällä...
+app.use(morgan('tiny',{
+    skip: function (req,res) {return req.method === 'POST'} // ei kahta kertaa POST
+}))
+
+// POST body merkkijonoksi
+morgan.token('body',function (req, res) {
+    //console.log('POST body',JSON.stringify(req.body))
+    return JSON.stringify(req.body)
+    //return 'lol' // tämän palautus onnistuu, eli str
+})
+
+
+// .. vaan täällä
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body ',{
+    skip: function (req,res) {return req.method !== 'POST'}
+}))
+
+
 
 let persons = [
     {
