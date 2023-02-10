@@ -1,0 +1,6 @@
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{
+    "number": "+0123456789"
+}
