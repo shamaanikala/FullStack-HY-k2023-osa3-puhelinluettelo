@@ -6,6 +6,7 @@ const cors = require('cors')
 
 app.use(express.json())
 app.use(cors())
+app.use(express.static('build'))
 
 // POST ei täällä...
 app.use(morgan('tiny',{
