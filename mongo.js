@@ -34,16 +34,18 @@ if (process.argv.length === 5) {
     })
 
     person.save().then(result => {
-        console.log('Henkilötiedot tallennettu!')
-        console.log(result)
+        //console.log('Henkilötiedot tallennettu!')
+        //console.log(result)
+        console.log(`added ${result.name} number ${result.number} to phonebook`)
         mongoose.connection.close()
     })
 }
 else if (process.argv.length === 3) {
-    console.log('Haetaan henkilötiedot tietokannasta...')
+    //console.log('Haetaan henkilötiedot tietokannasta...')
+    console.log('phonebook:')
     Person.find({}).then(result => {
         result.forEach(person => {
-            console.log(person)
+            console.log(`${person.name} ${person.number}`)
         })
         mongoose.connection.close()
     })
