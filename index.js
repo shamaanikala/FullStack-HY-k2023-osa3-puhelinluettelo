@@ -44,6 +44,8 @@ const errorHandler = (error, request, response, next) => {
         return response.status(400).json({
             error: 'Entry must have both name and number included.'
         })
+    } else if (error.name === 'ValidationError') {
+        return response.status(400).json({ error: error.message })
     }
 
     next(error)
@@ -138,6 +140,7 @@ app.post('/api/persons', (request,response,next) => {
     person.save().then(savedPerson => {
         response.json(savedPerson)
     })
+    .catch(error => next(error))
 })
 
 
