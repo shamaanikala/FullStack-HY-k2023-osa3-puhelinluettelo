@@ -46,6 +46,12 @@ const errorHandler = (error, request, response, next) => {
         })
     } else if (error.name === 'ValidationError') {
         return response.status(400).json({ error: error.message })
+    } else if (error.name === 'DuplicateName') {
+        let err = new Error()
+        err.message = 'Duplicate name found!'
+        return response.status(400).json({
+            error: error.message
+        })
     }
 
     next(error)
@@ -131,16 +137,28 @@ app.post('/api/persons', (request,response,next) => {
     //     //throw new Error('MissingData')
     //     return next(new Error('MissingData'))
     // }
+    //console.log('Etsitään duplikaatti')
     
-    const person = new Person({
-        name: body.name,
-        number: body.number,
-    })
+    Person.find({name : body.name})
+        .then(result => {
+            //console.log(result)
+            if (result.length > 0) {
+                //console.log('DUPLICATE FOUND!')
+                return next(new Error('DuplicateName'))
+            }
 
-    person.save().then(savedPerson => {
-        response.json(savedPerson)
-    })
-    .catch(error => next(error))
+            const person = new Person({
+                name: body.name,
+                number: body.number,
+            })
+
+            person.save().then(savedPerson => {
+                response.json(savedPerson)
+            })
+            //.catch(error => next(error))
+        })
+        .catch(error => next(error))
+    
 })
 
 
