@@ -54,6 +54,16 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
+    "name": "Tarpeeksi Merkkejä",
+    "number": "lol"
+}
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
     "name": "Tiku Orava",
     "number": "555-12345677"
 }

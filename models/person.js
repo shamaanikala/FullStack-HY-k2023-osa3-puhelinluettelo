@@ -20,7 +20,12 @@ const personSchema = new mongoose.Schema({
         minlength: 3,
         required: true
     },
-    number: String,
+    number: {
+        type: String,
+        minlength: 8,
+        required: true
+        // TODO CUSTOM MUOTOILUN VALIDOINTI
+    }
 })
 
 personSchema.set('toJSON', {
