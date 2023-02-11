@@ -121,16 +121,16 @@ app.post('/api/persons', (request,response,next) => {
 
     // console.log('request.body',body)
 
-    if (!body.name || !body.number) {
-        console.log('ERROR: missing name or number',Date())
-        // return response.status(400).json({
-        //    error: 'Entry must have both name and number included.'
-        // })
-        // heitetään oma Error. Muodostimen parametri on 
-        // Error.message
-        //throw new Error('MissingData')
-        return next(new Error('MissingData'))
-    }
+    // if (!body.name || !body.number) {
+    //     console.log('ERROR: missing name or number',Date())
+    //     // return response.status(400).json({
+    //     //    error: 'Entry must have both name and number included.'
+    //     // })
+    //     // heitetään oma Error. Muodostimen parametri on 
+    //     // Error.message
+    //     //throw new Error('MissingData')
+    //     return next(new Error('MissingData'))
+    // }
     
     const person = new Person({
         name: body.name,

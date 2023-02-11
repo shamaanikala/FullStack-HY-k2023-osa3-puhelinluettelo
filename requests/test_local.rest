@@ -101,6 +101,16 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "lo",
+    "number": "123-456789900"
+}
+
+###
+
 PUT http://localhost:3001/api/persons/63e78ebc17bcc3265bb0c0b9
 Content-Type: application/json
 
