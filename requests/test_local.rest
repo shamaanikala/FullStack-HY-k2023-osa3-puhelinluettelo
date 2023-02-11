@@ -6,7 +6,7 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "Aku Ankka",
+    "name": "Tupu Ankka",
     "number": "555-313 3134"
 }
 
@@ -38,4 +38,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3001/api/persons/1
+DELETE http://localhost:3001/api/persons/63e77d842ce6e43d70fa7486

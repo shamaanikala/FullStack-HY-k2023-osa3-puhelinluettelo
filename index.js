@@ -92,12 +92,12 @@ app.get('/api/persons/:id', (request,response) => {
     }
 })
 
-app.delete('/api/persons/:id', (request,response) => {
-    const id = Number(request.params.id)
-    //console.log(`DELETE /api/persons/${id}`,Date())
-    persons = persons.filter(p => p.id !== id)
-    //console.log('Persons filter jälk',persons)
-    response.status(204).end()
+app.delete('/api/persons/:id', (request,response, next) => {
+    Person.findByIdAndRemove(request.params.id)
+        .then(result => {
+            response.status(204).end()
+        })
+        .catch(error => next(error))
 })
 
 
