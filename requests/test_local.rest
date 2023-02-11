@@ -50,4 +50,14 @@ Content-Type: application/json
 
 ###
 
+PUT http://localhost:3001/api/persons/63e746c9e4530570814cc4b1
+Content-Type: application/json
+
+{
+    "name": "Aku Ankka",
+    "number": "555-313 3133"
+}
+
+###
+
 DELETE http://localhost:3001/api/persons/63e7852f554392bf4ce64131
