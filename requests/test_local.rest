@@ -50,12 +50,22 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:3001/api/persons/63e746c9e4530570814cc4b1
+POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "Aku Ankka",
-    "number": "555-313 3133"
+    "name": "Tiku Orava",
+    "number": "555-12345677"
+}
+
+###
+
+PUT http://localhost:3001/api/persons/63e78ebc17bcc3265bb0c0b9
+Content-Type: application/json
+
+{
+    "name": "Taku Orava",
+    "number": "555-12345677"
 }
 
 ###

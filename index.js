@@ -124,21 +124,11 @@ app.post('/api/persons', (request,response,next) => {
         throw new Error('MissingData')
     }
     
-    // if ([...persons.map(p => p.name)].includes(body.name)) {
-    //     // console.log('ERROR: Duplicate name',Date())
-    //     return response.status(400).json({
-    //         error: 'name must be unique'
-    //     })
-    // }
-    // console.log('Lisätään uusi yhteystieto')
     const person = new Person({
         name: body.name,
         number: body.number,
-        //id: generateRandomId(),
     })
-    //persons = persons.concat(person)
 
-    //response.status(201).json(person)
     person.save().then(savedPerson => {
         response.json(savedPerson)
     })
@@ -153,12 +143,19 @@ app.put('/api/persons/:id', (request, response, next) => {
         number: body.number,
     }
 
+    // tässä voisi ehkä potentiaalisesti muuttaa myös nimen,
+    // jos PUT tehdään VSC REST Client kautta. 
+    // Frontti lähettää saman nimen aina, koska siihen PUT
+    // perustuu.
+
     Person.findByIdAndUpdate(request.params.id, person, { new: true})
         .then(updatedPerson => {
             response.json(updatedPerson)
         })
         .catch(error => next(error))
 })
+
+
 
 app.use(errorHandler)
 app.use(unknowEndpoint)
