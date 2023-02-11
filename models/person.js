@@ -23,8 +23,13 @@ const personSchema = new mongoose.Schema({
     number: {
         type: String,
         minlength: 8,
-        required: true
-        // TODO CUSTOM MUOTOILUN VALIDOINTI
+        required: true,
+        // Mallia täältä:
+        // https://mongoosejs.com/docs/validation.html#custom-validators
+        validate: {
+            validator: v => /\d{3}-\d{7}/.test(v),
+            message: props => `${props.value} is not a valid phone number (custom error)`
+        }
     }
 })
 
