@@ -68,8 +68,13 @@ app.get('/info', (req,res) => {
     //
     // Sat Jan 22 2022 22:26:20 GMT+0200 (Easter European Standard Time)
     //console.log('GET /info',Date())
-    const msg = `Phonebook has info for ${persons.length} people<br /><br />${Date()}`
-    res.send(msg)
+    Person.estimatedDocumentCount().
+        then(result => {
+            console.log(result)
+            const msg = `Phonebook has info for ${result} people<br /><br />${Date()}`
+            res.send(msg)
+        })
+    
 })
 
 app.get('/api/persons/:id', (request,response, next) => {
