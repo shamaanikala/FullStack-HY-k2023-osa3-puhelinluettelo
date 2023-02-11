@@ -1,0 +1,41 @@
+GET http://localhost:3001/api/persons
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Aku Ankka",
+    "number": "555-313 3134"
+}
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "number": "555-313 3134"
+}
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Tupu Ankka"
+}
+
+###
+
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{}
+
+###
+
+DELETE http://localhost:3001/api/persons/1
