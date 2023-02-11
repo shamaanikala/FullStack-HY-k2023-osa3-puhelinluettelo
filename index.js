@@ -29,6 +29,10 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :b
 }))
 
 
+const unknowEndpoint = (request, response) => {
+    response.status(404).send({error: 'unknown endpoint'})
+}
+
 const errorHandler = (error, request, response, next) => {
     console.log(error.message)
 
@@ -133,6 +137,7 @@ app.post('/api/persons', (request,response) => {
 
 
 app.use(errorHandler)
+app.use(unknowEndpoint)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
