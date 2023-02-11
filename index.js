@@ -30,28 +30,7 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :b
 
 
 
-let persons = [
-    // {
-    //     "name": "Arto Hellas",
-    //     "number": "040-123456",
-    //     "id": 1
-    // },
-    // {
-    //     "name": "Ada Lovelace",
-    //     "number": "39-44-5323523",
-    //     "id": 2
-    // },
-    // {
-    //     "name": "Dan Abramov",
-    //     "number": "12-43-234345",
-    //     "id": 3
-    // },
-    // {
-    //     "name": "Mary Poppendieck",
-    //     "number": "39-23-6423122",
-    //     "id": 4
-    // }
-]
+let persons = []
 
 
 app.get('/', (req,res) => {
@@ -75,21 +54,16 @@ app.get('/info', (req,res) => {
     res.send(msg)
 })
 
-app.get('/api/persons/:id', (request,response) => {
-    const id = Number(request.params.id)
-    //console.log(`GET /api/persons/${id}`,Date())
-    const person = persons.find(person => person.id === id)
-    if (person) {
-        response.json(person)
-    } else {
-        //console.log(`#STATUS 404: id=${id} not found!`,Date())
-        response.status(404).send(
-            `<h2>
-                404 - Person not found!
-            </h2>
-            <br />
-            <i>ID number ${id} does not exist in the data.</i>`)
-    }
+app.get('/api/persons/:id', (request,response, next) => {
+    Person.findById(request.params.id)
+        .then(person => {
+            if (person) {
+                response.json(person)
+            } else {
+                response.status(404).end()
+            }
+        })
+        .catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (request,response, next) => {
