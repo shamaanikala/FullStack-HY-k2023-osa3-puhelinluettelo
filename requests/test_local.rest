@@ -54,8 +54,29 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "Tarpeeksi Merkkejä",
-    "number": "lol"
+    "name": "Lauri Lauseke",
+    "number": "09-1234556"
+}
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Sanni Säännöllinen",
+    "number": "040-22334455"
+}
+
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Vilperi Vääräleuka",
+    "number": "+358-1234556"
 }
 
 ###
@@ -74,7 +95,7 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "OK",
+    "name": "Väärä Numero",
     "number": "1234"
 }
 
