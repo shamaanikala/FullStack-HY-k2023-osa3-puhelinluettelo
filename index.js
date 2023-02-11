@@ -35,6 +35,7 @@ const unknowEndpoint = (request, response) => {
 
 const errorHandler = (error, request, response, next) => {
     console.log(error.message)
+    console.log(error.name)
 
     if (error.name === 'CastError') {
         return response.status(400).send({ error: 'malformatted id'} )
@@ -45,8 +46,10 @@ const errorHandler = (error, request, response, next) => {
             error: 'Entry must have both name and number included.'
         })
     } else if (error.name === 'ValidationError') {
-        return response.status(400).json({ error: error.message })
-    } else if (error.name === 'DuplicateName') {
+        console.log('lol')
+        return response.status(400).send({ error: error.message })
+    } 
+    else if (error.message === 'DuplicateName') {
         let err = new Error()
         err.message = 'Duplicate name found!'
         return response.status(400).json({
@@ -124,7 +127,7 @@ const generateRandomId = () => {
 
 app.post('/api/persons', (request,response,next) => {
     const body = request.body
-
+    console.log('POST alkaa')
     // console.log('request.body',body)
 
     // if (!body.name || !body.number) {
@@ -139,6 +142,7 @@ app.post('/api/persons', (request,response,next) => {
     // }
     //console.log('Etsitään duplikaatti')
     
+    
     Person.find({name : body.name})
         .then(result => {
             //console.log(result)
@@ -146,19 +150,18 @@ app.post('/api/persons', (request,response,next) => {
                 //console.log('DUPLICATE FOUND!')
                 return next(new Error('DuplicateName'))
             }
-
-            const person = new Person({
-                name: body.name,
-                number: body.number,
-            })
-
-            person.save().then(savedPerson => {
-                response.json(savedPerson)
-            })
-            //.catch(error => next(error))
-        })
-        .catch(error => next(error))
+            else {
+                const person = new Person({
+                    name: body.name,
+                    number: body.number,
+                })
     
+                person.save().then(savedPerson => {
+                    response.json(savedPerson)
+            })
+            .catch(error => next(error))
+            }
+        }).catch(error => next(error))
 })
 
 
