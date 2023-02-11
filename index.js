@@ -39,6 +39,12 @@ const errorHandler = (error, request, response, next) => {
     if (error.name === 'CastError') {
         return response.status(400).send({ error: 'malformatted id'} )
     }
+    //console.log('TÄÄLLÄ')
+    if (error.message === 'MissingData') {
+        return response.status(400).json({
+            error: 'Entry must have both name and number included.'
+        })
+    }
 
     next(error)
 }
@@ -103,16 +109,19 @@ const generateRandomId = () => {
     : randomId 
 }
 
-app.post('/api/persons', (request,response) => {
+app.post('/api/persons', (request,response,next) => {
     const body = request.body
 
     // console.log('request.body',body)
 
     if (!body.name || !body.number) {
-        // console.log('ERROR: missing name or number',Date())
-        return response.status(400).json({
-            error: 'Entry must have both name and number included.'
-        })
+        console.log('ERROR: missing name or number',Date())
+        // return response.status(400).json({
+        //    error: 'Entry must have both name and number included.'
+        // })
+        // heitetään oma Error. Muodostimen parametri on 
+        // Error.message
+        throw new Error('MissingData')
     }
     
     // if ([...persons.map(p => p.name)].includes(body.name)) {
