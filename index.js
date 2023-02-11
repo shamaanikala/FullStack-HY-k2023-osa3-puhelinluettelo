@@ -12,7 +12,7 @@ app.use(express.static('build'))
 
 // POST ei täällä...
 app.use(morgan('tiny',{
-    skip: function (req,res) {return req.method === 'POST'} // ei kahta kertaa POST
+    skip: function (req,res) {return (req.method === 'POST' || req.method === 'PUT')} // ei kahta kertaa POST
 }))
 
 // POST body merkkijonoksi
@@ -25,7 +25,7 @@ morgan.token('body',function (req, res) {
 
 // .. vaan täällä
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body ',{
-    skip: function (req,res) {return req.method !== 'POST'}
+    skip: function (req,res) {return (req.method !== 'POST' && req.method !== 'PUT')}
 }))
 
 
@@ -145,19 +145,17 @@ app.post('/api/persons', (request,response,next) => {
 
 
 app.put('/api/persons/:id', (request, response, next) => {
-    const body = request.body
-
-    const person = {
-        name: body.name,
-        number: body.number,
-    }
+    const { name, number } = request.body
 
     // tässä voisi ehkä potentiaalisesti muuttaa myös nimen,
     // jos PUT tehdään VSC REST Client kautta. 
     // Frontti lähettää saman nimen aina, koska siihen PUT
     // perustuu.
 
-    Person.findByIdAndUpdate(request.params.id, person, { new: true})
+    Person.findByIdAndUpdate(
+        request.params.id,
+        { name, number },
+        { new: true, runValidators: true, context: 'query'})
         .then(updatedPerson => {
             response.json(updatedPerson)
         })
