@@ -126,7 +126,8 @@ app.post('/api/persons', (request,response,next) => {
         // })
         // heitetään oma Error. Muodostimen parametri on 
         // Error.message
-        throw new Error('MissingData')
+        //throw new Error('MissingData')
+        return next(new Error('MissingData'))
     }
     
     const person = new Person({
