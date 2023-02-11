@@ -29,17 +29,25 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :b
 }))
 
 
+const errorHandler = (error, request, response, next) => {
+    console.log(error.message)
+
+    if (error.name === 'CastError') {
+        return response.status(400).send({ error: 'malformatted id'} )
+    }
+
+    next(error)
+}
+
 
 let persons = []
 
 
 app.get('/', (req,res) => {
-    //console.log('GET /',Date())
     res.send(`<h1>Puhelinluettelo</h1>`)
 })
 
 app.get('/api/persons', (req,res) => {
-    //console.log('GET /api/persons',Date())
     Person.find({}).then(persons => {
         res.json(persons)
     })
@@ -123,6 +131,8 @@ app.post('/api/persons', (request,response) => {
     })
 })
 
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
