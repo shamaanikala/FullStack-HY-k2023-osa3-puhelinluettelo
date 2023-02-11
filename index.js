@@ -60,7 +60,7 @@ app.get('/', (req,res) => {
 })
 
 app.get('/api/persons', (req,res) => {
-    console.log('GET /api/persons',Date())
+    //console.log('GET /api/persons',Date())
     Person.find({}).then(persons => {
         res.json(persons)
     })
@@ -118,8 +118,6 @@ const generateRandomId = () => {
 }
 
 app.post('/api/persons', (request,response) => {
-    // console.log('POST /api/persons',Date())
-    // console.log('headers',request.headers)
     const body = request.body
 
     // console.log('request.body',body)
@@ -131,21 +129,24 @@ app.post('/api/persons', (request,response) => {
         })
     }
     
-    if ([...persons.map(p => p.name)].includes(body.name)) {
-        // console.log('ERROR: Duplicate name',Date())
-        return response.status(400).json({
-            error: 'name must be unique'
-        })
-    }
+    // if ([...persons.map(p => p.name)].includes(body.name)) {
+    //     // console.log('ERROR: Duplicate name',Date())
+    //     return response.status(400).json({
+    //         error: 'name must be unique'
+    //     })
+    // }
     // console.log('Lisätään uusi yhteystieto')
-    const person = {
+    const person = new Person({
         name: body.name,
         number: body.number,
-        id: generateRandomId(),
-    }
-    persons = persons.concat(person)
+        //id: generateRandomId(),
+    })
+    //persons = persons.concat(person)
 
-    response.status(201).json(person)
+    //response.status(201).json(person)
+    person.save().then(savedPerson => {
+        response.json(savedPerson)
+    })
 })
 
 
