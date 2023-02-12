@@ -53,7 +53,8 @@ const errorHandler = (error, request, response, next) => {
     let err = new Error()
     err.message = 'Duplicate name found!'
     return response.status(400).json({
-      error: error.message
+      //error: error.message
+      error: err.message
     })
   }
 
