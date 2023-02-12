@@ -1,0 +1,134 @@
+GET https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+
+###
+
+GET https://puhelinluettelo-osa3-backend.onrender.com/api/persons/63e6876d7dcb98c49042f9ee
+
+###
+
+GET https://puhelinluettelo-osa3-backend.onrender.com/api/persons/63e68
+
+###
+
+GET https://puhelinluettelo-osa3-backend.onrender.com/info
+
+###
+
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "Tupu Ankka",
+    "number": "555-313 3134"
+}
+
+###
+
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{
+    "number": "555-313 3134"
+}
+
+###
+
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "Tupu Ankka"
+}
+
+###
+
+
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{}
+
+###
+
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "Lauri Lauseke",
+    "number": "09-1234556"
+}
+
+###
+
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "Sanni Säännöllinen",
+    "number": "040-22334455"
+}
+
+
+###
+
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "Vilperi Vääräleuka",
+    "number": "+358-1234556"
+}
+
+###
+
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "Tiku Orava",
+    "number": "555-12345677"
+}
+
+###
+
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "Väärä Numero",
+    "number": "1234"
+}
+
+###
+
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "lo",
+    "number": "123-456789900"
+}
+
+###
+
+PUT https://puhelinluettelo-osa3-backend.onrender.com/api/persons/63e78ebc17bcc3265bb0c0b9
+Content-Type: application/json
+
+{
+    "name": "Taku Orava",
+    "number": "555-12345677"
+}
+
+###
+
+POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
+Content-Type: application/json
+
+{
+    "name": "VSC Rest Client",
+    "number": "123-456789900"
+}
+
+###
+
+DELETE https://puhelinluettelo-osa3-backend.onrender.com/api/persons/63e8c86fb7dc37f322ace0bb

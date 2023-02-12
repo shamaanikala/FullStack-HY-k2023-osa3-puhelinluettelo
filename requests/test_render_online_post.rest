@@ -1,7 +1,0 @@
-POST https://puhelinluettelo-osa3-backend.onrender.com/api/persons
-Content-Type: application/json
-
-{
-    "name": "VSC REST Client",
-    "number": "+0123456789"
-}
