@@ -122,3 +122,13 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3001/api/persons/63e7b144183bd36d7f70a6f6
+
+###
+
+PUT http://localhost:3001/api/persons/63e78ebc17bcc3265bb0c0b9
+Content-Type: application/json
+
+{
+    "name": "Taku Orava",
+    "number": "555-12345677adsasfda"
+}
